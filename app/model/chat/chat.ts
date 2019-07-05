@@ -1,16 +1,18 @@
+import db from '../../db/db'
+
 class chat {
 
     constructor() {}
 
-    helloWorld(): string {
+    public helloWorld(): string {
         return 'Hello World!';
     }
 
-    click(): string {
+    public click(): string {
         return 'Click!';
     }
 
-    homepage(): string {
+    public homepage(): string {
         return 'Home Page!';
     }
 }

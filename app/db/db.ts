@@ -1,29 +1,49 @@
-var MongoClient = require('mongodb').MongoClient
+import { Db, MongoClient } from 'mongodb';
 
-var state: any = {
-  db: null,
-}
+export class db {
+  private client!: MongoClient;
+  private readonly connectionString = 'mongodb://localhost:27017';
+  private readonly dbName = 'local';
 
-exports.connect = function(url: any, done: any) {
-  if (state.db) return done()
+  constructor() {}
 
-  MongoClient.connect(url, function(err: any, db: any) {
-    if (err) return done(err)
-    state.db = db
-    done()
-  })
-}
+  public close() {
+    if (this.client) {
+        this.client.close()
+        .then()
+        .catch(error => {
+            console.error(error);
+        });
+    } else {
+        console.error('close: client is undefined');
+    }
+  }
 
-exports.get = function() {
-  return state.db
-}
+  public async connect() {
+    try {
+      if (!this.client) {
+        this.client = await MongoClient.connect(this.connectionString);
+        return true;
+      }
+      else {
+        return false;
+      }
+    } 
+    catch(error) {
+      console.error(error);
+      return false;
+    }
+  }
 
-exports.close = function(done: any) {
-  if (state.db) {
-    state.db.close(function(err: any, result: any) {
-      state.db = null
-      state.mode = null
-      done(err)
-    })
+  public get() {
+    if (this.client) {
+      return this.client.db(this.dbName);
+    } else {
+      console.error('no db found');
+      return undefined;
+    }
   }
 }
+
+const MongoDb = new db();
+export default MongoDb;
