@@ -8,13 +8,12 @@ var locationsController = /** @class */ (function () {
     function locationsController() {
     }
     locationsController.prototype.getLocations = function (req, res) {
-        locations_1.default.getLocations(function (err, locations) {
-            if (err) {
-                res.send(err);
-            }
-            else {
-                res.send(JSON.stringify(locations, null, 2));
-            }
+        locations_1.default.getLocations()
+            .then(function (data) {
+            res.send(data);
+        })
+            .catch(function (err) {
+            res.send(err);
         });
     };
     return locationsController;

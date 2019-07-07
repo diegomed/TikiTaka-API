@@ -7,8 +7,8 @@ var locationsSchema_1 = __importDefault(require("./locationsSchema"));
 var locations = /** @class */ (function () {
     function locations() {
     }
-    locations.prototype.getLocations = function (callback) {
-        return locationsSchema_1.default.find(callback);
+    locations.prototype.getLocations = function () {
+        return locationsSchema_1.default.find();
     };
     return locations;
 }());

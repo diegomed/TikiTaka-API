@@ -3,12 +3,10 @@ import location from './locationsSchema';
 
 class locations {
 
-    private localDB: any;
-
     constructor() {}
 
-    public getLocations(callback: any): any {
-        return location.find(callback);
+    public getLocations(): any {
+        return location.find();
     }
 }
 

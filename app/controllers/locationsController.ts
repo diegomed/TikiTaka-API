@@ -1,16 +1,16 @@
 import locations from '../model/locations/locations'
+import { response } from 'express';
 
 class locationsController {
 
-    getLocations(req: any, res: any): void {
-        locations.getLocations(function(err: any, locations: any) {
-            if (err) {
+    public getLocations(req: any, res: any): void {
+        locations.getLocations()
+            .then(function(data: any) {
+                res.send(data);
+            })
+            .catch(function(err: any) {
                 res.send(err);
-            }
-            else {
-                res.send(locations);
-            }
-        });
+            });
     }
 
 }
